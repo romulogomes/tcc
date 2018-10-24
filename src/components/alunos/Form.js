@@ -7,6 +7,7 @@ import Alerta from './../Alerta'
 
 import { Form, Field } from 'react-final-form'
 import InputText from './../Input'
+import Select from './../Select'
 
 export default class FormAlunos extends Component {
     constructor(props) {
@@ -96,13 +97,7 @@ export default class FormAlunos extends Component {
                         <form onSubmit={handleSubmit}>
                             <InputText label="Nome" name="name"/>
                             
-                            <div className="form-group">
-                                <label htmlFor="advisor">Orientador</label>
-                                <Field name="advisor" className="form-control" component="select">
-                                    <option />
-                                    { this.state.options.map(opcao => <option key={opcao.value} value={opcao.value}>{opcao.label}</option>)}
-                                </Field>
-                            </div>
+                            <Select label="Orientador" name="advisor" options={this.state.options} />
 
                             <div className="mt-3">
                                 <button type="submit" disabled={submitting || pristine} className="btn btn-primary">Cadastrar</button>
