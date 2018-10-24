@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-// import Select from 'react-select';
 import AlunosService from './Service'
 import OrientadoresService from './../orientadores/Service'
 import Alerta from './../Alerta'
@@ -8,6 +6,7 @@ import Alerta from './../Alerta'
 import { Form, Field } from 'react-final-form'
 import InputText from './../Input'
 import Select from './../Select'
+import BotoesCrud from './../BotoesCrud'
 
 export default class FormAlunos extends Component {
     constructor(props) {
@@ -99,10 +98,7 @@ export default class FormAlunos extends Component {
                             
                             <Select label="Orientador" name="advisor" options={this.state.options} />
 
-                            <div className="mt-3">
-                                <button type="submit" disabled={submitting || pristine} className="btn btn-primary">Cadastrar</button>
-                                <Link to='/aluno'> <button type="submit" className="btn btn-light ml-2">Voltar</button> </Link>
-                            </div>
+                            <BotoesCrud labelCadastrar="Cadastrar" linkVoltar="/aluno" submitting={submitting} pristine={pristine}/>
                         </form>
                     )}
                 />
