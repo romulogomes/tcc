@@ -45,10 +45,10 @@ export default class ListAlunos extends Component {
             AlunosService.removeAluno(this.state.alunoSelecionado.id) 
               .then(res => {
                 alert("Aluno Removido com sucesso");
-                const alunos = this.state.alunos;
-                const index = alunos.indexOf(this.state.alunoSelecionado);
-                alunos.splice(index, 1);
-                this.setState({alunos});
+                const { dadosTabela }  = this.state;
+                const index = dadosTabela.indexOf(this.state.alunoSelecionado);
+                dadosTabela.splice(index, 1);
+                this.setState({dadosTabela});
             }).catch(erro =>{
                 console.log(erro)
             })
@@ -59,11 +59,10 @@ export default class ListAlunos extends Component {
         const json = [];
         if(dados){ 
             for (let i = 0; i < dados.length; i++) {
-                json.push({
-                    "id" : dados[i].id,
-                    "name" : dados[i].name,
-                    "orientador" : dados[i].orientador.name,
-                    "area" : dados[i].orientador.area
+                json.push({ "id" : dados[i].id,
+                            "name" : dados[i].name,
+                            "orientador" : dados[i].orientador.name,
+                            "area" : dados[i].orientador.area
                 })
             }
         }
