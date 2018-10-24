@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-class Table extends Component {
+export default class Table extends Component {
     constructor(props){
         super(props);
-
     }
 
     render() {
@@ -11,7 +10,6 @@ class Table extends Component {
         if(dados.length) {
             const dado = dados[0];
             return (
-                
                 <div className="col-11">
                     <table className="table table-striped">
                         <thead>
@@ -32,10 +30,8 @@ class Table extends Component {
                 </div>
             );
         }
-        else{
-            return ( "" )
-        }
+        else return ( "" ) 
     }
 }
 
-export default Table;
+  

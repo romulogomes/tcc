@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 import AlunosService from './Service'
-import Table from './../Table'
+import Table  from './../Table'
 import Titulo from './../Titulo'
 
-class ListAlunos extends Component {
+export default class ListAlunos extends Component {
     constructor(props) {
         super(props);
         
@@ -87,5 +87,3 @@ class ListAlunos extends Component {
         )
       }
 }
-
-export default ListAlunos;

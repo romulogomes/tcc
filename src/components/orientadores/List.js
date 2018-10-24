@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OrientadoresService from './Service'
 import { Link } from 'react-router-dom'
 
-import Table from './../Table'
+import Table  from './../Table'
 import Titulo from './../Titulo'
 
 export default class ListOrientadores extends Component {

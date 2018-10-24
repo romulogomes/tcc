@@ -6,7 +6,7 @@ import Alerta from './../Alerta'
 import { Form } from 'react-final-form'
 import InputText from './../Input'
 
-class FormOrientadores extends Component {
+export default class FormOrientadores extends Component {
     constructor(props) {
         super(props);
         
@@ -103,4 +103,3 @@ class FormOrientadores extends Component {
         );
     }
 }
-export default FormOrientadores;

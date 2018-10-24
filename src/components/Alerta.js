@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Alerta extends Component {
+export default class Alerta extends Component {
     render() {
         return (
             <div>
@@ -24,4 +24,3 @@ class Alerta extends Component {
     }
 }
 
-export default Alerta;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'react-final-form'
 
-class InputText extends Component {
+
+export default class InputText extends Component {
     constructor(props){
         super(props);
     }
@@ -14,5 +15,3 @@ class InputText extends Component {
         );
     }
 }
-
-export default InputText;

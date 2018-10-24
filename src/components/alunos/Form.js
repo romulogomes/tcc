@@ -8,7 +8,7 @@ import Alerta from './../Alerta'
 import { Form, Field } from 'react-final-form'
 import InputText from './../Input'
 
-class FormAlunos extends Component {
+export default class FormAlunos extends Component {
     constructor(props) {
         super(props);
         
@@ -132,4 +132,3 @@ class FormAlunos extends Component {
     }
 }
 
-export default FormAlunos;
