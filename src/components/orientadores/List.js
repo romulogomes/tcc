@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import OrientadoresService from './Service'
 import { Link } from 'react-router-dom'
 
+import Table from './../Table'
+import Titulo from './../Titulo'
 
-class ListOrientadores extends Component {
+export default class ListOrientadores extends Component {
     constructor(props){
         super(props);
         
         this.state = {
             orientadores : [],
-            orientadorSelecionado : 0,
+            orientadorSelecionado : {},
         }
 
         this.setOrientadorSelecionado = this.setOrientadorSelecionado.bind(this);
@@ -17,12 +19,10 @@ class ListOrientadores extends Component {
         this.removeOrientador = this.removeOrientador.bind(this);
     }
 
-
     componentDidMount(){
         OrientadoresService.listaOrientadores()
             .then(res => {
-                const orientadores = res.data;
-                this.setState({ orientadores });
+                this.setState({ orientadores : res.data });
             }).catch(erro =>{
                 console.log(erro)
             })
@@ -40,7 +40,7 @@ class ListOrientadores extends Component {
         if (window.confirm("Confirma deletar Orientador?")) {
             OrientadoresService.removeOrientador(this.state.orientadorSelecionado.id)
               .then(res => {
-                const orientadores = this.state.orientadores;
+                const { orientadores } = this.state;
                 const index = orientadores.indexOf(this.state.orientadorSelecionado);
                 orientadores.splice(index, 1);
                 this.setState({orientadores});
@@ -48,43 +48,19 @@ class ListOrientadores extends Component {
             }).catch(erro => {
                 if(erro.response.data.status === 400)
                     alert("Orientador tem alunos ligado a Ele");
-                else
-                    console.log(erro)
-                
+                console.log(erro)
             })
         }
     }
 
     render() {
         const { orientadores } = this.state;
-        
         return (
           <div className="fadeIn">
-              <div className="col-2 mt-5">
-                <h4>Orientadores</h4>
-              </div>
-              
-              <div className="col-11">
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Area</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { orientadores.map(orientador => 
-                            <tr key={orientador.id} className={`${orientador === this.state.orientadorSelecionado? 'table-primary' : ''}`} onClick={() => this.setOrientadorSelecionado(orientador)}>
-                                <th>{orientador.id}</th>
-                                <td>{orientador.name}</td>
-                                <td>{orientador.area}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-              </div>
-         
+                <Titulo texto="Orientador"/>
+                
+                <Table dados={orientadores} selecionado={this.state.orientadorSelecionado} setSelecionado={this.setOrientadorSelecionado}/>             
+
                 <div className="col-3 mt-3">
                     <Link to="/orientador/novo"> <button type="button" className="btn btn-primary">Novo</button> </Link>
                     <button type="button" className="btn btn-info ml-1" disabled={!this.state.orientadorSelecionado} onClick={this.redirectEdit}>Alterar</button>
@@ -94,5 +70,3 @@ class ListOrientadores extends Component {
         )
       }
 }
-
-export default ListOrientadores;
