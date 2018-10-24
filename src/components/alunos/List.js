@@ -73,7 +73,6 @@ export default class ListAlunos extends Component {
     render() {
         return (
           <div className="fadeIn">
-
                 <Titulo texto="Alunos"/>
 
                 <Table dados={this.state.dadosTabela} selecionado={this.state.alunoSelecionado} setSelecionado={this.setAlunoSelecionado}/>

@@ -62,6 +62,7 @@ export default class ListOrientadores extends Component {
                 <Table dados={orientadores} selecionado={this.state.orientadorSelecionado} setSelecionado={this.setOrientadorSelecionado}/>             
 
                 <div className="col-3 mt-3">
+                            
                     <Link to="/orientador/novo"> <button type="button" className="btn btn-primary">Novo</button> </Link>
                     <button type="button" className="btn btn-info ml-1" disabled={!this.state.orientadorSelecionado} onClick={this.redirectEdit}>Alterar</button>
                     <button type="button" className="btn btn-danger ml-1" disabled={!this.state.orientadorSelecionado} onClick={this.removeOrientador}>Excluir</button>

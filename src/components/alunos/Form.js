@@ -32,9 +32,7 @@ export default class FormAlunos extends Component {
                 const advisors = res.data;
                 this.setState({ advisors });
                 this.transformOptions(advisors);
-            }).catch(erro =>{
-                console.log(erro)
-            })
+            }).catch(erro =>{ console.log(erro) })
 
         if(this.state.idAluno)
           this.getInfosAluno();
@@ -49,22 +47,17 @@ export default class FormAlunos extends Component {
 
     getInfosAluno(){
         AlunosService.getInfosAluno(this.state.idAluno)
-        .then(res => {
-            console.log(res.data);
-            const aluno = res.data;
-            this.setState({ name : aluno.name , orientador : { value: aluno.orientador.id, label: aluno.orientador.name } });
-            // this.setState({ advisors });
-        }).catch(erro =>{
-            console.log(erro)
-        })
+            .then(res => {
+                console.log(res.data);
+                const aluno = res.data;
+                this.setState({ name : aluno.name , orientador : { value: aluno.orientador.id, label: aluno.orientador.name } });
+            }).catch(erro => { console.log(erro)})
     }
 
     transformOptions( advisors ) {
         const options = [];
-        for (let i = 0; i < advisors.length; i++) {
+        for (let i = 0; i < advisors.length; i++)
             options.push({ value: advisors[i].id, label: advisors[i].name })
-        }
-
         this.setState({options});   
     }
 
@@ -84,17 +77,13 @@ export default class FormAlunos extends Component {
             AlunosService.editAluno(jsonSend)
                 .then(res => {
                     this.setState( {success : { ativo : true, mensagem : "Editado com Sucesso"}, warning : { ativo : false} });
-                }).catch(erro => { 
-                    console.log(erro);
-                })    
+                }).catch(erro => { console.log(erro); })    
         }
         else{        
             AlunosService.gravaAluno(jsonSend)
                 .then(res => {
                     this.setState( {success : { ativo : true, mensagem : "Cadastrado com Sucesso"} , warning : { ativo : false} });
-                }).catch(erro => { 
-                    console.log(erro);
-                })
+                }).catch(erro => { console.log(erro); })
         }
     }
 
@@ -105,12 +94,11 @@ export default class FormAlunos extends Component {
                       initialValues={{ name: this.state.name, advisor : this.state.orientador.value}}
                       render={({ handleSubmit, form, submitting, pristine}) => (
                         <form onSubmit={handleSubmit}>
-                            
                             <InputText label="Nome" name="name"/>
                             
                             <div className="form-group">
                                 <label htmlFor="advisor">Orientador</label>
-                                <Field name="advisor"  className="form-control" component="select">
+                                <Field name="advisor" className="form-control" component="select">
                                     <option />
                                     { this.state.options.map(opcao => <option key={opcao.value} value={opcao.value}>{opcao.label}</option>)}
                                 </Field>
@@ -123,9 +111,7 @@ export default class FormAlunos extends Component {
                         </form>
                     )}
                 />
-                
                 <Alerta tipo="success" clickFechar={() => this.dismissAlert('sucess')} show={this.state.success.ativo} mensagem={this.state.success.mensagem}/>
-                
                 <Alerta tipo="warning" clickFechar={() => this.dismissAlert('warning')} show={this.state.warning.ativo} mensagem={this.state.warning.mensagem} />
             </div>
         );

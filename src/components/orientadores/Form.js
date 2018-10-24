@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import OrientadoresService from './Service'
 import Alerta from './../Alerta'
-
 import { Form } from 'react-final-form'
 import InputText from './../Input'
 
@@ -63,17 +62,13 @@ export default class FormOrientadores extends Component {
             OrientadoresService.editaOrientador(dados)
                 .then(res => {
                     this.setState( {success : { ativo : true, mensagem : "Editado com Sucesso"}, warning : { ativo : false} });
-                }).catch(erro => { 
-                    console.log(erro);
-                })    
+                }).catch(erro => { console.log(erro); })    
         }
         else{        
             OrientadoresService.gravaOrientador(dados)
                 .then(res => {
                     this.setState( {success : { ativo : true, mensagem : "Cadastrado com Sucesso"} , warning : { ativo : false} });
-                }).catch(erro => { 
-                    console.log(erro);
-                })
+                }).catch(erro => { console.log(erro); })
         }
     }
 
@@ -97,7 +92,6 @@ export default class FormOrientadores extends Component {
                     )}
                 />
                 <Alerta tipo="success" show={this.state.success.ativo} mensagem={this.state.success.mensagem} clickFechar={() => this.dismissAlert('sucess')}/>
-
                 <Alerta tipo="warning" show={this.state.warning.ativo} mensagem={this.state.warning.mensagem} clickFechar={() => this.dismissAlert('warning')}/>
             </div>
         );
