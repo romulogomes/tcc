@@ -70,3 +70,7 @@ select {
 a:hover {
   text-decoration: none !important;
 }
+
+.titulo_table{
+  text-transform: uppercase;
+}

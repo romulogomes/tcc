@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 import AlunosService from './Service'
-
-
+import Table from './../Table'
+import Titulo from './../Titulo'
 
 class ListAlunos extends Component {
     constructor(props) {
@@ -11,20 +11,22 @@ class ListAlunos extends Component {
         
         this.state = {
             alunos: [],
-            alunoSelecionado : 0
+            alunoSelecionado : {},
+            dadosTabela : []
         }
 
         this.setAlunoSelecionado = this.setAlunoSelecionado.bind(this);
-        this.removeAluno = this.removeAluno.bind(this);
         this.redirectEditAluno = this.redirectEditAluno.bind(this);
+        this.removeAluno = this.removeAluno.bind(this);
+        this.transformDataToTable = this.transformDataToTable.bind(this);
     }
-    
 
     componentDidMount(){
         AlunosService.listaAlunos()
             .then(res => {
                 const alunos = res.data;
                 this.setState({ alunos });
+                this.transformDataToTable(alunos);
             }).catch(erro =>{
                 console.log(erro)
             })
@@ -53,41 +55,31 @@ class ListAlunos extends Component {
         }
     }
 
+    transformDataToTable( dados ) {
+        const json = [];
+        if(dados){ 
+            for (let i = 0; i < dados.length; i++) {
+                json.push({
+                    "id" : dados[i].id,
+                    "name" : dados[i].name,
+                    "orientador" : dados[i].orientador.name,
+                    "area" : dados[i].orientador.area
+                })
+            }
+        }
+        this.setState({ dadosTabela : json })
+    }
+
     render() {
-        const {alunos} = this.state;
         return (
           <div className="fadeIn">
-              <div className="col-2 mt-5">
-                <h4>Alunos</h4>
-              </div>
-              
-              <div className="col-11">
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Orientador</th>
-                        <th scope="col">Area</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { alunos.map(aluno => 
-                            <tr key={aluno.id} className={`${aluno === this.state.alunoSelecionado? 'table-primary' : ''}`} onClick={() => this.setAlunoSelecionado(aluno)}>
-                                <th>{aluno.id}</th>
-                                <td>{aluno.name}</td>
-                                <td>{aluno.orientador.name}</td>
-                                <td>{aluno.orientador.area}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-              </div>
-         
+
+                <Titulo texto="Alunos"/>
+
+                <Table dados={this.state.dadosTabela} selecionado={this.state.alunoSelecionado} setSelecionado={this.setAlunoSelecionado}/>
+                
                 <div className="col-3 mt-3">
-                    <Link to="/aluno/novo">
-                        <button type="button" className="btn btn-primary">Novo</button>
-                    </Link>
+                    <Link to="/aluno/novo"> <button type="button" className="btn btn-primary">Novo</button> </Link>
                     <button type="button" className="btn btn-info ml-1" disabled={!this.state.alunoSelecionado} onClick={this.redirectEditAluno}>Alterar</button>
                     <button type="button" className="btn btn-danger ml-1" disabled={!this.state.alunoSelecionado} onClick={this.removeAluno}>Excluir</button>
                 </div>
