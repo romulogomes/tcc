@@ -46,7 +46,7 @@ export default class ListOrientadores extends Component {
                 this.setState({orientadores});
                 alert("Orientador Removido com sucesso");
             }).catch(erro => {
-                if(erro.response.data.status === 400)
+                if(erro.response.status === 400)
                     alert("Orientador tem alunos ligado a Ele");
                 console.log(erro)
             })
