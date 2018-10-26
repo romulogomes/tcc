@@ -3,9 +3,6 @@ import { Field } from 'react-final-form'
 
 
 export default class InputText extends Component {
-    constructor(props){
-        super(props);
-    }
     render() {
         return (
                 <div className="form-group">
