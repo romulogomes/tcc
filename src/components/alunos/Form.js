@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { Form } from 'react-final-form'
+
 import AlunosService from './Service'
 import OrientadoresService from './../orientadores/Service'
 import Alerta from './../Alerta'
-
-import { Form, Field } from 'react-final-form'
 import InputText from './../Input'
 import Select from './../Select'
 import BotoesCrud from './../BotoesCrud'
@@ -102,8 +102,8 @@ export default class FormAlunos extends Component {
                         </form>
                     )}
                 />
-                <Alerta tipo="success" clickFechar={() => this.dismissAlert('sucess')} show={this.state.success.ativo} mensagem={this.state.success.mensagem}/>
-                <Alerta tipo="warning" clickFechar={() => this.dismissAlert('warning')} show={this.state.warning.ativo} mensagem={this.state.warning.mensagem} />
+                <Alerta tipo="success" show={this.state.success.ativo} mensagem={this.state.success.mensagem} clickFechar={() => this.dismissAlert('sucess')}/>
+                <Alerta tipo="warning" show={this.state.warning.ativo} mensagem={this.state.warning.mensagem} clickFechar={() => this.dismissAlert('warning')} />
             </div>
         );
     }
