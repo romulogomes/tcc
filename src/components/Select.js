@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Field } from 'react-final-form'
+import { Field } from 'react-final-form'
 
 class Select extends Component {
     render() {
