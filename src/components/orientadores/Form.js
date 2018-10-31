@@ -37,18 +37,12 @@ export default class FormOrientadores extends Component {
     }
 
     transformOptions( advisors ) {
-        const options = [];
-        for (let i = 0; i < advisors.length; i++) {
-            options.push({ value: advisors[i].id, label: advisors[i].name })
-        }
+        const options = advisors.map(advisor => ({ value: advisor.id, label: advisor.name }))
         this.setState({options});   
     }
 
     dismissAlert(alert){
-        if(alert === 'warning')
-            this.setState({ warning : { ativo : false } })
-        else
-            this.setState({ success:  { ativo : false } })
+        alert === 'warning' ?  this.setState({ warning : { ativo : false } }) :  this.setState({ success:  { ativo : false } })
     }
 
     salvarOrientador(dados){
@@ -61,14 +55,28 @@ export default class FormOrientadores extends Component {
             dados.id = this.state.idOrientador;
             OrientadoresService.editaOrientador(dados)
                 .then(res => {
-                    this.setState( {success : { ativo : true, mensagem : "Editado com Sucesso"}, warning : { ativo : false} });
-                }).catch(erro => { console.log(erro); })    
+                    if(res.data.id)
+                        this.setState( {success : { ativo : true, mensagem : "Editado com Sucesso"}, warning : { ativo : false} });
+                    else
+                        this.setState( { success : { ativo : false }, warning : { ativo : true, mensagem : "Não foi possível concluir sua Requisicao - Nome ja existe" } }); 
+                }).catch(erro => { 
+                    this.setState( { success : { ativo : false }, 
+                                     warning : { ativo : true, mensagem : "Erro" } }); 
+                })    
         }
         else{        
             OrientadoresService.gravaOrientador(dados)
                 .then(res => {
                     this.setState( {success : { ativo : true, mensagem : "Cadastrado com Sucesso"} , warning : { ativo : false} });
-                }).catch(erro => { console.log(erro); })
+                    if(res.data.id)
+                        this.setState( {success : { ativo : true, mensagem : "salvo com Sucesso"}, warning : { ativo : false} });
+                    else
+                        this.setState( { success : { ativo : false }, warning : { ativo : true, mensagem : "Não foi possível concluir sua Requisicao - Nome ja existe" } }); 
+                }).catch(res => { 
+                    const erros = res.response.data;
+                    const mensagem = erros["name"] ? `Nome já existe - Server: ${erros["name"][0]}` : "Não foi possível concluir sua Requisicao";
+                    this.setState( { success : { ativo : false }, warning : { ativo : true, mensagem } }); 
+                })
         }
     }
 

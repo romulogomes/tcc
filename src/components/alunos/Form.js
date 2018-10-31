@@ -55,9 +55,7 @@ export default class FormAlunos extends Component {
     }
 
     transformOptions( advisors ) {
-        const options = [];
-        for (let i = 0; i < advisors.length; i++)
-            options.push({ value: advisors[i].id, label: advisors[i].name })
+        const options = advisors.map(advisor => ({ value: advisor.id, label: advisor.name }))
         this.setState({options});   
     }
 
